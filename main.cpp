@@ -337,6 +337,17 @@ int handle_init(int argc, char** argv) {
   return 0;
 };
 
+int log_commands() {
+  log_normal("Available commands:");
+  log_normal("  presets             List all presets");
+  log_normal("  preset add <name>    Add a new preset");
+  log_normal("  preset rm <name>     Remove a preset");
+  log_normal("  preset cat <name>    Show preset details");
+  log_normal("  preset list          List all presets (or ls)");
+  log_normal("  init <preset> <dir>  Initialize a new project");
+  return 0;
+}
+
 int main(int argc, char** argv) {
   string command;
   initPresetFile();
@@ -347,6 +358,7 @@ int main(int argc, char** argv) {
   };
   if(command.empty()) {
     log_error("No command provided.");
+    log_commands();
     return 1;
   }
   if (command == "presets") {
@@ -357,6 +369,7 @@ int main(int argc, char** argv) {
     return handle_init(argc, argv);
   } else {
     log_error("Unknown command: " + command);
+    log_commands();
     return 1;
   }
   return 0;
